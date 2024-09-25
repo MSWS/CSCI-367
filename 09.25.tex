@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\title{Computer Networks}
+\author{Logan Sizemore}
+
+\begin{document}
+
+\maketitle
+
+A computer network is a communications network that allows devices to exchange
+information or data.
+
+\subsection{Glossary}
+
+\begin{description}
+    \item[Nodes]  are the individual devices or components that connect to a
+          network; essentially any active, addressable point in the network.
+          \begin{itemize}
+              \item Send
+              \item Receive
+              \item Store
+              \item Forward
+          \end{itemize}
+    \item[Links] are the connections between nodes. They represent the
+          medium through which data is transmitted. Can be physical or wireless.
+    \item[Hosts] are nodes in a network which run applications.
+    \item[Internetwork] is the collection of two or more networks connected via routers.
+\end{description}
+
+\noindent
+Non-obvious hosts include:
+\begin{itemize}
+    \item Video-Game Consoles
+    \item IoT Devices (Ring, Alex, Fridges, etc.)
+    \item Pagers
+    \item Card Payment Devices / ATMs
+\end{itemize}
+
+\section{Creation}
+\subsection{ARPANET}
+\subsubsection{TCP/IP Standard}
+
+\subsection{Metcalfe's Law}
+\newtheorem{metcalfe}{Metcalfe's Law}
+
+\begin{metcalfe}
+    The value of a network grows \(O(n^2)\), where $n$ is the number of nodes in
+    a network.
+\end{metcalfe}
+
+i.e. it is better for \emph{a} network to have 100 nodes, than 10 networks with
+10 nodes.
+
+\end{document}
