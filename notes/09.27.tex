@@ -1,0 +1,103 @@
+
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Protocols and the Layered Model}
+\author{Logan Sizemore}
+
+\begin{document}
+
+
+\maketitle
+
+\section{Protocols}
+\subsection{Morse Code}
+Invented by Samuel Finley Breese Morse, morse code is an example of a
+\emph{protocol} that simplifies communication by standardizing messages into a
+known format.
+
+\begin{itemize}
+    \item A \emph{protocol} is a set of rules that guide how devices communicate with each
+          other.
+    \item Defines the format (syntax) and meaning (semantics) of the data being exchanged.
+\end{itemize}
+
+\noindent
+Expected characteristics of a network
+\begin{enumerate}
+    \setlength{\itemsep}{0em}
+    \item Scalable
+    \item Secure
+    \item Reliable
+\end{enumerate}
+
+\subsection{TCP/IP}
+\begin{description}
+    \item[Transmission Control Protocol (TCP)] ensures reliable data transfer
+          and performs error-checking between devices.
+    \item[Internet Protocol (IP)] is responsible for addressing and routing
+          between devices on a network or across the internet.
+    \item[Internet Architecture Board (IAB)] is responsible for defining the
+          standards that make up the internet.
+          \begin{itemize}
+              \item Coordinated the technical direction of the internet.
+              \item Set official policies for its development.
+              \item Determined which protocols were essential to the TCP/IP suite.
+          \end{itemize}
+\end{description}
+
+\subsubsection{IETF and RFCs}
+The IAB was reorganized into the \emph{Internet Engineering Task Force (IETF)}.
+
+\subsection{IPv4}
+IP Addresses is a 32-bit unsigned integer.
+Eg:
+\begin{enumerate}
+    \setlength{\itemsep}{0em}
+    \item \texttt{3,232,235,777}
+    \item We convert to \texttt{11000000 11110000 00000000 00000001}
+    \item Each is then converted to decimal and separated by a period.
+    \item \texttt{192.168.1.1}
+\end{enumerate}
+
+\large
+\section{Layered Model}
+\begin{enumerate}
+    \item[5] Application Layer
+    \item[4] Transport Layer
+          \begin{itemize}
+              \item Ensures reliable data between applications across networks.
+              \item Uses UDP Datagrams or Segments.
+          \end{itemize}
+    \item[3] Internetwork Layer
+          \begin{itemize}
+              \item Responsible for logical addressing (IP), routing, and forwarding
+                    data \emph{between networks}.
+              \item Determines best path for data to travel.
+          \end{itemize}
+    \item[2] Link Layer
+          \begin{itemize}
+              \item Responsible for local network communication.
+              \item Controls how data is packaged into frames.
+          \end{itemize}
+          \begin{itemize}
+              \item MAC Address
+          \end{itemize}
+    \item[1] Physical Layer
+          \begin{itemize}
+              \item Responsible for the transmission of raw bits from A to B.
+              \item Does not care about addresing; whoever is listening will receive the message.
+          \end{itemize}
+          \begin{itemize}
+              \item Wires
+          \end{itemize}
+\end{enumerate}
+\normalsize
+
+\end{document}
