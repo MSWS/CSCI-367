@@ -1,0 +1,183 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Simplex, Duplex, Multiplex}
+\author{Logan Sizemore}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\maketitle
+
+How do we share a transmission medium?
+\begin{description}
+    \item[Simplex] One-way communication (one-way road) \\
+          \textbf{Example:} Optical fiber
+    \item[Duplex] Two-way communication (two-way road); transmit and receive simultaneously \\
+          \textbf{Example:} `Full' optical fiber cable, with some fibers for transmitting and some for receiving
+    \item[Half-Duplex] Two-way communication (two-way road); transmit and receive, but not simultaneously \\
+          \textbf{Example:} Walkie-talkie, construction zone with alternating traffic
+    \item[Multiplexing] the process of sharing a tranmission medium among multiple devices / signals. \\
+          Take several distinct signals and interleave them in a way that can be be separated at the receiving end.
+\end{description}
+
+\subsection*{Multiplexing}
+\subsubsection*{Frequency Division Multiplexing (FDM)}
+\begin{itemize}
+    \item Divides medium into different frequency bits
+    \item Each signal is sent simultaneously but on a different frequency band
+          \begin{itemize}
+              \item FM Radio
+              \item Cable TV
+          \end{itemize}
+\end{itemize}
+
+\subsubsection*{Time Division Multiplexing (TDM)}
+\begin{itemize}
+    \item Devices take turns using the medium in a round-robin manner.
+    \item Multiplexes signals at the baseband level by assigning different time slots to each signal.
+    \item Is `baseband' if the signal uses the entire bandwidth of the medium.
+\end{itemize}
+
+\subsubsection*{Statistical Time Division Multiplexing}
+A more dynamic version of TDM where time slots are based on needs rather than
+fixed turns.
+Efficient use of bandwidth by allocating time only when devices need it.
+FDM and TDM are not mutually exclusive and can be combined.
+
+\newpage
+\section*{Ethernet and Network Technologies}
+We know how data is sent across a transmission medium.
+How is data transferred over a local network?
+
+\subsection*{WAN and LAN}
+WAN is strictly in Layer 2.
+\begin{multicols}{2}
+    \begin{description}
+        \item[LAN] Small geographic span
+              \begin{itemize}
+                  \item 10s to 1000s of meters
+                  \item Used in offices and homes
+                  \item Modest bandwidth
+                  \item Low latency
+                  \item ethernet / WiFi
+              \end{itemize}
+    \end{description}
+    \begin{description}
+        \item[WAN] Large geographic span
+              \begin{itemize}
+                  \item state, country, globe
+                  \item Connects networks via routers
+                  \item Huge bandwidth
+                  \item High latency
+                  \item Optical fiber / satellite
+              \end{itemize}
+    \end{description}
+\end{multicols}
+
+\subsection*{Principles of Ethernet}
+Designed as a simple way to connect multiple devices in a local network.
+\begin{enumerate}
+    \item All devices connect to a \emph{common communication channel}, sharing
+          access to transmit data.
+    \item Any message sent is \emph{broadcasted to all hosts} on the network,
+          and each host determines if the message is relevant to them.
+    \item Data transmission is \emph{unreliable} - there is no guarantee of
+          delivery, and no acknowledgment of receipt.
+    \item There is no \emph{central authority} managing access to the channel.
+          Hosts \emph{negotiate access} amongst themselves.
+\end{enumerate}
+
+\subsubsection*{Thicknet (10Base5)}
+\begin{itemize}
+    \item Shared coaxial cable bus
+    \item Attachment Unit Interface (AUI) cable run to a transceiver, which
+          connects to the computer's network card.
+    \item 10Base5: 10 Mbps, Baseband, max length 500 meters.
+    \item Thich rigid cables (hard to install).
+\end{itemize}
+
+\subsubsection*{Thinnet (10Base2)}
+\begin{itemize}
+    \item Replaced thicknet with thinner coaxial cables
+    \item Shared bus runs from computer to computer using BNC-T connectors
+    \item More flexible and easier to work with.
+    \item Chained directly from one computer to the next.
+    \item 10Base2: 10 Mbps, Baseband, max length 200 meters.
+\end{itemize}
+
+\subsubsection*{Hub-Based Twisted Pair (10BaseT / 100BaseTX)}
+\begin{itemize}
+    \item Uses twisted pair wires (CAT5, 6, 8, etc.)
+    \item All devices connect to a central hub (`bus in a box')
+    \item No taps, instead connects directly from network card to hub
+    \item 10BaseT: 10 Mbps, Baseband, max length 100 meters.
+    \item Speeds increased to 10 / 100 / 1000 Mbps
+\end{itemize}
+
+\subsubsection*{Switch-Based Twisted Pair (1000BaseTX)}
+\begin{itemize}
+    \item Switches replace hubs for more efficient data transmission
+    \item Each device has dedicated ethernet cable running to switch
+    \item Switch enables all devices to connect and communicate efficiently
+\end{itemize}
+
+\subsection*{Ethernet Hardware Addressing}
+On a shared bus network, every device (host) receives all messages.
+Thus, each host must determine `is this frame for me?'
+To achieve this, every frame contains:
+\begin{itemize}
+    \item Source HW address
+    \item Destination HW address
+\end{itemize}
+
+\subsubsection*{MAC Address}
+\emph{Media Access Control} address used for frame delivery.
+Structure
+\begin{itemize}
+    \item 48 bits (6 bytes)
+    \item Written in hexadecimal format (e.g., B8:27:EB:1E:2D:4F)
+    \item Colons separate octets
+\end{itemize}
+
+\paragraph*{Assignment of MAC Addresses}
+Manufacturers buy blocks of MAC addresses from IEEE.
+
+\begin{equation*}
+    \mathtt{\underbrace{B8}_{\text{asdf}}:CA:3A:B9:F3:D2}
+\end{equation*}
+
+Can temporarily change (spoof)
+\begin{itemize}
+    \item Debugging
+    \item Malicious activities
+\end{itemize}
+
+\begin{description}
+    \item[Unicast] Specifies a single device.
+    \item[Broadcast] All devices on the network. \\
+          All 1s in binary, FF:FF:FF:FF:FF:FF in hexadecimal.
+    \item[Multicast] Sent to a specific group of devices.
+\end{description}
+
+\subsubsection*{Promiscuous Mode}
+\begin{itemize}
+    \item Allows a network card to accept all frames, regardless of destination.
+    \item Commonly used for network debugging or Wi-Fi monitoring.
+\end{itemize}
+
+\subsection*{Ethernet Frames}
+\emph{Link Layer} exists to exchange messages across a \textit{physical
+    network}.
+
+Messages are frames...
+\end{document}
