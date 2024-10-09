@@ -1,0 +1,123 @@
+
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Transmission Errors and Correction}
+\author{Logan Sizemore}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\maketitle
+\subsection*{Source of transmission errors}
+\begin{enumerate}
+    \item Noise - Unwanted \emph{random} signals or fluctuations
+    \item Interference - Disruption caused by \emph{external signals}
+    \item Distortion - \emph{Changes in the shape} or form of the data signal
+\end{enumerate}
+
+\subsubsection*{Single Bit Error}
+\texttt{1010110} -> \texttt{10\textbf{0}0110}
+
+\subsubsection*{Burst Error}
+A group of bits within a block are changed due to a longer-duration disturbance.
+Often caused by sustained interferences over a longer period of time.
+
+Bursts start at the first error and end at the last error.
+
+\subsubsection*{Erasure}
+A signal received is ambiguous or unclear.
+Often caused by distortion or strong interference.
+
+\subsection*{Hamming Distance}
+Given two strings of $n$ bits each, the Hamming Distance is defined as the numebr of differences.
+\texttt{10110001011} and \texttt{10011010111} have a Hamming Distance of 5.
+
+\subsection*{Error Handling}
+If we \emph{know} that there is an error in some data that we received...
+\begin{itemize}
+    \item Ask sender to send the data again.
+    \item Correct error on our side.
+\end{itemize}
+
+\subsubsection*{Correction vs. Detection}
+\begin{description}
+    \item[Detection] Identify whether an error has occurred during data. \\
+          Generally simpler with less overhead.
+    \item[Correction] Identify and correct the error. \\
+          More complex and requires redundancy, but allows for self-correction without retransmission.
+\end{description}
+
+\subsubsection*{Redundancy}
+One method for error detection is introducing redundancy.
+
+Notationally:
+\begin{itemize}
+    \item a \emph{dataword} is the original data
+    \item a \emph{codeword} is the dataword with redundancy added
+\end{itemize}
+
+if a dataword has $k$ bits and $r$ redundant bits are added, the encoding is called an
+
+\begin{equation*}
+    (n, k) \text{ encoding scheme, where } n = k + r
+\end{equation*}
+
+\begin{tabular}{cl}
+    Sender   & Receiver                  \\
+    Dataword & Dataword                  \\
+    Encoder  & Decoder -> Redundant Bits \\
+    Codeword & Discard
+\end{tabular}
+
+\subsection*{Parity}
+Single Parity Checking (SPC) adds a single \emph{parity bit} to data to ensure an even or odd number of 1s.
+
+If a burst error occurs which changes an even number of bits, the receiver will
+incorrectly classify the data as correct.
+
+No error detection is perfect, some errors may go undetected.
+The goal becomes:
+\begin{enumerate}
+    \item Minimize the possibility that one valid codeword can be transformed
+          into another valid codeword.
+    \item Minimize the number of redundant bits we must add to the message.
+\end{enumerate}
+
+\subsubsection*{Hamming Distance and Robustness}
+\begin{multicols}{2}
+    \begin{tabular}{cc}
+        Data & Code \\
+        00   & 001  \\
+        01   & 010  \\
+        10   & 100  \\
+        11   & 111  \\
+    \end{tabular} \\
+    All have a hamming distance between each other of 2.
+\end{multicols}
+
+\paragraph*{Error Detection Trade Off}
+A larger min distance \((d_{min})\) between codewords is beneficial for error
+detection.
+
+If fewere than \(d_{min}\) bits are changed, the error can be detected.
+
+The max number of detectable bit errors is:
+\begin{equation*}
+    e = d_{min} - 1
+\end{equation*}
+
+\subsubsection*{RAC Parity}
+Error correction method using 2D parity checks.
+Data organized into a grid with parity bits added for each row and column.
+
+\end{document}

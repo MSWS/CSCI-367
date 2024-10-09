@@ -1,0 +1,120 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Transmission Media}
+\author{Logan Sizemore}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\maketitle
+
+\paragraph*{Guided vs. Unguided Media}
+\begin{tabular}{cc}
+    Guided                              & Unguided                   \\
+    Propogates through a physical cable & Propogates through air     \\
+    Twisted pair, coaxial, fiber optic  & Radio, microwave, infrared \\
+\end{tabular}
+
+\begin{itemize}
+    \item Electricity \begin{itemize}
+              \item Twisted pair cable
+              \item Caoxial Cable
+          \end{itemize}
+    \item Light (fiber optic)
+    \item Radio Signals (Wi-Fi)
+\end{itemize}
+
+\paragraph*{Guided Electrical Transmission}
+Signal is formed by modulating voltage through the medium.
+Requires two wires to form a complete circuit.
+
+\begin{multicols}{2}
+    Main issue is \emph{electromagnetic radiation}.
+    Can be mitigated in two ways:
+    \begin{enumerate}
+        \item Twisted Cables
+        \item Shielding
+    \end{enumerate}
+    \begin{tabular}{c|c}
+        Advantages      & Disadvantages               \\ \hline
+        Cost-effective  & Susceptible to interference \\
+        Easy to install & Limited length (< 100 m)    \\
+        Durable         &                             \\
+        High-speed      &                             \\
+    \end{tabular}
+\end{multicols}
+
+
+\subsubsection*{Twisted Pair}
+Two wires (usually copper) twist together, one for signal, one for ground.
+\emph{Twisting} the wires ensures they are \emph{exposed equally} to radiation,
+minimizing the chance of noise.
+
+
+\subsubsection*{Shielding}
+Twisted pair wiring has problems when:
+\begin{itemize}
+    \item Noise is especially strong / close
+    \item Data is transmitted at high frequency
+\end{itemize}
+
+Metal shielding that surroudns the signal wire can protect it from interference.
+
+\subsection*{Optical Fiber}
+Optical fiber cables are composed of long, thin strands of glass encased in
+plastic.
+Data is transmitted as short, well-defined light pulses.
+
+\begin{quote}
+    As light travels through the fiber, it can scatter and broaden.
+\end{quote}
+
+On either end there is
+\begin{description}
+    \item[Light emitter]  (or LED) sends data in the form of light pulses.
+    \item[Photosensitive detector] receives and interprets the light pulses.
+\end{description}
+
+\subparagraph*{Total Internal Reflection} can contribute to smearing due to some
+photons taking longer paths than others.
+
+\begin{tabular}{c|c}
+    Advantages       & Disadvantages          \\ \hline
+    High speed       & Expensive              \\
+    Less attenuation & Difficult to work with \\
+    Security         &                        \\
+    High Bandwidth   &                        \\
+    Repeatability
+\end{tabular}
+
+\subsection*{Radio Based Transmission}
+
+A form of unguided transmission.
+
+Commonly used for Wi-Fi, Bluetooth, satelliate, etc.
+\begin{itemize}
+    \item Low Frequency (LF): 30 kHz - 300 kHz (long-range, maritime signals)
+    \item Very High Frequency (VHF): 30 MHz - 300 MHz (FM radio, TV)
+    \item Ultra High Frequency (UHF): 300 MHz - 3 GHz (Wi-Fi, Bluetooth)
+    \item Microwave: 3 GHz - 300 GHz (satellite, radar)
+\end{itemize}
+
+Governed by the \emph{FCC} in the US.
+
+\begin{tabular}{cc}
+    Advantages  & Disadvantages               \\ \hline
+    Ease of use & Security Risks              \\
+    Flexible    & Susceptible to noise        \\
+                & Limited bandwidth and range
+\end{tabular}
+\end{document}

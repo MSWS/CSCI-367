@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Layered Model}
+\author{Logan Sizemore}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\maketitle
+
+\section{Layered Model}
+\subsection{Physical Layer}
+Responsible for the transmission of raw bits over a physical medium from point A
+to B.
+
+\begin{itemize}
+    \item Ethernet, bluetooth, wifi, etc.
+    \item No addressing required
+\end{itemize}
+
+
+\subsection{Link Layer}
+Responsible for local network communication, how data is packaged into frames,
+and ensuring error-free data transfer between nodes.
+
+Protocols around Ethernet / Wi-Fi are in this layer.
+
+Typically, MAC addressing is used.
+
+\subsection{Internetork Layern}
+Responsible for logical addressing, routing, and forwarding data between
+networks.
+
+\subsection{Transport Layer}
+Ensures reliably communication between applications across networks.
+Uses UDP Datagrams or Segments.
+Typically used with ports.
+
+\begin{quote}
+    How are we delivering the data to/from the application?
+\end{quote}
+
+\subsection{Application Layer}
+Provides protocols for end-user applications.
+Application layer is like an API for the transport layer.
+
+\subsubsection{Client-Server Model}
+\begin{itemize}
+    \setlength{\itemsep}{0em}
+    \item A client is a host that sends requests to a server to get data.
+    \item A server is a host that provides data to clients.
+\end{itemize}
+
+Any host on a network could act as either a client or server.
+
+For clients to be able to connect to servers, they need to know its server
+address.
+
+\begin{tabular}{cc}
+    Servers                          & Clients                              \\
+    \hline
+    Operate continuously             & Request services                     \\
+    Provide services to many clients & Operate intermittently               \\
+    At a known location              & Don't need to be at a known location \\
+\end{tabular}
+
+\paragraph{Load Balancing} Use multiple machines, with a server forwarding data
+to other machines.
+\paragraph{Proxy Cache}
+\paragraph{Client Cache}
+
+\section{Socket API}
+Originally developed for Berkley Unix (1983)
+Acts like a 2-way pipe, with two services supported:
+\begin{description}
+    \item[Stream]  reliably send a sequence of bytes
+    \item[Datagram] unreliably send messages
+\end{description}
+\end{document}
