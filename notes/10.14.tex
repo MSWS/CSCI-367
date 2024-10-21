@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Internetworking}
+
+\begin{document}
+\begin{enumerate}
+    \item Host A constructs a frame with an IP datagram in its payload.
+    \item Host A sends the frame to the router.
+\end{enumerate}
+
+When a router is connected to two physical networks, that router is called \emph{multi-homed}.
+Similarly, it has two hardware addresses.
+
+\section*{Internetwork Layer}
+Questions to be addressed:
+\begin{itemize}
+    \item \setlength{\itemsep}{0em} How does addressing work?
+    \item How do we map addresses to physical addresses? (ARP)
+    \item How are packets formatted, how are different frame sizes managed?
+    \item How do routers know where to send datagrams?
+    \item How are errors handled?
+\end{itemize}
+
+\end{document}

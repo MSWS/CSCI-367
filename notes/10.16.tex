@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Datagrams}
+
+\begin{document}
+
+\maketitle
+
+\section*{Properties}
+\paragraph*{Connectionless}
+\begin{itemize}
+    \item Each datagram is treated independently.
+    \item Consecutive datagrams may take different routes.
+\end{itemize}
+\paragraph*{Unreliable}
+\begin{itemize}
+    \item Datagrams can be lost, duplicated, delayed or delivered out of order.
+    \item Higher-level protocols (TCP) handle these deficiencies.
+\end{itemize}
+\paragraph*{Best-Effort Delivery}
+
+\subsection*{Explicit Congestion Notification (ECN)}
+Routers can set this field if they are overloaded, signaling the sender to
+reduce transmission rate.
+
+\subsection*{Fragmentation}
+\begin{description}
+    \item[Transparent Fragmentation] Routers reassemble fragments.
+    \item[Non-Transparent Fragmentation] Only destination host reassembles fragments.
+\end{description}
+\end{document}

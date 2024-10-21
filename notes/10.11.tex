@@ -1,0 +1,40 @@
+
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Hubs}
+\author{Logan Sizemore}
+
+\begin{document}
+
+\maketitle
+
+In hub-based ethernet, all devices share a single communication line.
+
+\subsection*{CSMA - Carrier Sense Multiple Access}
+Devices listen before sending (baseband)
+
+\subsection*{CD - Collision Detection}
+Collision: Two devices send at the same time.
+Collision Handling:
+Stop transmitting immediately.
+Wait a random time, then retry.
+Double wait time with each collision.
+
+Swithes forward frames in local networks efficiently.
+
+\begin{description}
+    \item[Source Address Learning] Switch observes source MAC addresses and
+          associates it with the port.
+    \item[Forwarding] Checks the destination MAC address
+\end{description}
+
+\end{document}
