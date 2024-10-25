@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Routing and Supernetting}
+
+\begin{document}
+
+\maketitle
+
+\section*{Handling Datagrams}
+
+A datagram can arrive to a host, or a router.
+
+\subsection*{Host}
+If datagram is for me, there are three possible reasons:
+\begin{description}
+    \setlength{\itemsep}{0em}
+    \item[Unicast] Meant for the host specifically.
+    \item[Broadcast] Meant for everyone.
+    \item[Multicast] Meant for a group of hosts.
+\end{description}
+
+If it's not for `me', then drop it.
+
+\subsection*{Router}
+If datagram is for `me', accept it.
+If not for `me', decrement TTL, if it reaches 0, drop it and send ICMP message.
+Otherwise, recompute checksum in IP header and then deliver it (either directly
+or indirectly).
+
+\begin{description}
+    \item[Direct] Router is directly connected to the destination.
+    \item[Indirect] Router has to forward the packet to another router.
+\end{description}
+
+\section*{Routing}
+Each router has a routing table, which maps from Network ID -> Router.
+
+\begin{equation*}
+    \left(\underbrace{N\left(I_x\right)}_{\text{network}}, \underbrace{R_2}_{\text{next hop}}\right)
+\end{equation*}
+
+\begin{align*}
+    X \rightarrow Z & \text{ typically doesn't change} \\
+    Z \rightarrow X & \text{ sometimes changes}
+\end{align*}
+
+Thus, every router doesn't need to know the entire network, just the next hop.
+
+\section*{Supernetting}
+\begin{itemize}
+    \item Reduce size of routing tables
+    \item Make routing easier
+    \item Make `big networks' have a single entry in the routing table
+\end{itemize}
+\end{document}
