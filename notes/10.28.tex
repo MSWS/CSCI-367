@@ -1,0 +1,51 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Internet Standards Organization Open Systems Interconnected (ISO OSI) Model}
+
+\begin{document}
+
+\maketitle
+
+\section*{Layers}
+\begin{enumerate}
+    \item Application
+    \item Presentation
+    \item Session
+    \item Transport
+    \item Internetwork
+    \item Link
+    \item Physical
+\end{enumerate}
+
+First three layers are considered the \emph{Application} layer.
+The session layer keeps track of the state.
+Presentation layer is responsible for image/text formats.
+
+\section*{TCP/IP Reference Model}
+Specifically built around the TCP/IP protocol suite.
+
+\subsection*{Layers}
+\begin{enumerate}
+    \item Application
+    \item Transport
+    \item Internet
+    \item Network Interface
+\end{enumerate}
+
+\section*{Hour Glass Model}
+Presented as an hour glass, where the top and bottom are the application and
+physical layers, respectively. The upper and lower layers are `bigger' (hence
+the hour glass) with the middle layer (network) being the smallest.
+
+Above transport is outside of the OS.
+Above Link layer is IP address, below is hardware address.
+\end{document}
