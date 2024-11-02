@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{multicol}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{UDP}
+
+\setlist{itemsep=0pt}
+
+\begin{document}
+
+\maketitle
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \# & \textbf{Layer Name} & \textbf{Protocol} & \textbf{Data Unit} & \textbf{Addressing} \\
+        \hline
+        5  & Application         & HTTP, SMTP, etc.  & Messages           & n/a                 \\
+        4  & Transport           & TCP/UDP           & Segment            & Port \#'s           \\
+        3  & Network             & IP                & Datagram           & IP address          \\
+        2  & Data Link           & Ethernet, Wi-Fi   & Frames             & MAC Address         \\
+        1  & Physical            & 10 Base T, 802.11 & Bits               & n/a                 \\
+        \hline
+    \end{tabular}
+    \caption{Network Layer Protocols and Addressing}
+\end{table}
+
+\section*{UDP}
+\begin{itemize}
+    \item User Datagram Protocol
+    \item Layer 4 (Transport)
+    \item Transmits data between applications
+    \item Connectionless
+    \item Message based
+    \item Low Overhead
+\end{itemize}
+
+\subsection*{Functions}
+\subsubsection*{Demultiplexing}
+Provides ports to an IP datagram.
+
+\end{document}
