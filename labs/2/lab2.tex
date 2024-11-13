@@ -1,0 +1,195 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+% Page geometry and margins
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm}
+
+% Header and Footer settings
+\pagestyle{fancy}
+\fancyhf{}
+\newcommand{\TheAuthor}{Isaac Boaz and Arun Shrestha} % As given in documentation of **fancyhdr**
+\newcommand{\Author}[1]{\renewcommand{\TheAuthor}{#1}}
+\fancyhead[CO]{\slshape \leftmark}
+\fancyhead[C]{\slshape \TheAuthor}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\rhead{CSCI 367}
+\lhead{Fall 2024}
+\rfoot{Page \thepage}
+
+% Listings settings for monospaced font
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\begin{center}
+      \Large \textbf{Ethernet and ARP Lab}
+\end{center}
+
+\vspace{1cm}
+
+In this lab, you will analyze Ethernet and ARP traffic using Wireshark. Follow the instructions below and answer each question in detail. Be sure to include screenshots or listings where appropriate.
+
+\section*{Opening the Wireshark Trace File}
+
+To analyze the Ethernet and ARP traffic in this lab, you need to open the provided trace file \texttt{ethernet-ethereal-trace-1} in Wireshark.
+
+\begin{enumerate}
+      \item Download the \texttt{wireshark-traces.zip} file from the course materials on Canvas.
+      \item Unzip the file, which should include the trace file \texttt{ethernet-ethereal-trace-1}.
+      \item In Wireshark, go to \texttt{File -> Open} and navigate to the directory where the unzipped trace files are located. Select the file \texttt{ethernet-ethereal-trace-1} and click \texttt{Open}.
+\end{enumerate}
+
+\section*{Lab Questions}
+
+\begin{enumerate}[label=Q\arabic*:]
+      \item \textbf{Packet 10}
+            \begin{enumerate}[label=(\alph*)]
+                  \item What is the 48-bit Ethernet address of the source computer? Who is the manufacturer of this device? \\
+                        \texttt{00:d0:59:a9:3d:68} - Ambit Microsystems Corp.
+                  \item What is the 48-bit destination address in the Ethernet frame? Who is the manufacturer of this device? \\
+                        \texttt{00:06:25:da:af:73} - The Linksys Group, Inc.
+                  \item Give the hexadecimal value for the two-byte Frame type field. What upper layer protocol does this correspond to? \\
+                        \texttt{0x0800} - IPv4
+                  \item How many bytes from the very start of the Ethernet frame does the ASCII character \texttt{G} in \texttt{GET} appear in the Ethernet frame? \\
+                        55 bytes in.
+            \end{enumerate}
+
+      \item \textbf{Packet 12}
+            \begin{enumerate}[label=(\alph*)]
+                  \item What is the value of the Ethernet source address? \\
+                        \texttt{00:06:25:da:af:73}
+                  \item What is the destination address in the Ethernet frame? \\
+                        \texttt{00:d0:59:a9:3d:68}
+                  \item Give the hexadecimal value for the two-byte Frame type field. What upper layer protocol does this correspond to? \\
+                        \texttt{0x0800} - IPv4
+                  \item How many bytes from the very start of the Ethernet frame does the ASCII character \texttt{O} in \texttt{OK} (i.e., the HTTP response code) appear in the Ethernet frame? \\
+                        68
+            \end{enumerate}
+
+      \item \textbf{ARP Cache}
+            \begin{enumerate}[label=(\alph*)]
+                  \item In your terminal, run the \texttt{arp} command (\texttt{arp -n}) and write down the contents of your computer's ARP cache. What is the meaning of each column value?
+            \end{enumerate}
+            \begin{verbatim}
+Address                  HWtype  HWaddress        
+140.160.137.1            ether   54:51:de:c8:51:bf
+140.160.137.30           ether   02:42:8c:a0:89:1e
+          \end{verbatim}
+
+            \begin{description}
+                  \item[Address] Is the destination IPv4 address that we are caching
+                  \item[HWtype] Is presumably the type of communication used to get it
+                  \item[HWaddress] Is the cached hardware address of the IPv4
+            \end{description}
+
+            \clearpage
+
+      \item \textbf{Ethernet Frame with ARP Request}
+            \begin{enumerate}[label=(\alph*)]
+                  \item What are the hexadecimal values for the source and destination addresses in the Ethernet frame containing the ARP request message? What is this message doing? \\
+                        \texttt{00:d0:59:a9:3d:68} -> \texttt{ff:ff:ff:ff:ff:ff} \\
+                        This message is asking for the hardware address of \texttt{192.168.1.1}.
+                  \item Give the hexadecimal value for the two-byte Ethernet Frame type field. What upper layer protocol does this correspond to? \\
+                        \texttt{0x0806} - ARP
+            \end{enumerate}
+
+      \item \textbf{ARP Specification}
+            \begin{enumerate}[label=(\alph*)]
+                  \item Refer to \href{http://www.erg.abdn.ac.uk/users/gorry/course/inet-pages/arp.html}{this discussion of ARP} or the slides.
+                        \begin{enumerate}[label=(\roman*)]
+                              \item How many bytes from the very beginning of the Ethernet frame does the ARP opcode field begin? \\
+                                    21
+                              \item What is the value of the opcode field within the ARP-payload part of the Ethernet frame in which an ARP request is made? \\
+                                    \texttt{0x0001}
+                              \item Does the ARP message contain the IP address of the sender? \\
+                                    Yes
+                              \item Where in the ARP request does the "question" appear — the Ethernet address of the machine whose corresponding IP address is being queried? \\
+                                    The very end of the message- or the last 4 bytes.
+                        \end{enumerate}
+            \end{enumerate}
+
+      \item \textbf{ARP Reply}
+            \begin{enumerate}[label=(\alph*)]
+                  \item Find the ARP reply sent in response to the ARP request.
+                        \begin{enumerate}[label=(\roman*)]
+                              \item How many bytes from the very beginning of the Ethernet frame does the ARP opcode field begin? \\
+                                    21
+                              \item What is the value of the opcode field within the ARP-payload part of the Ethernet frame in which an ARP response is made? \\
+                                    \texttt{0x0002}
+                              \item Where in the ARP message does the "answer" to the earlier ARP request appear — the IP address of the machine having the Ethernet address whose corresponding IP address is being queried?
+                                    The answer is stored in the sender's hardware address in the ARP packet.
+                        \end{enumerate}
+                  \item What are the hexadecimal values for the source and destination addresses in the Ethernet frame containing the ARP reply message? \\
+                        \texttt{00:06:25:da:af:73} -> \texttt{00:d0:59:a9:3d:68}
+            \end{enumerate}
+
+      \item \textbf{Unanswered ARP Request}
+            \begin{enumerate}[label=(\alph*)]
+                  \item The first and second ARP packets correspond to an ARP request and ARP reply. Packet 6 contains another ARP request. Why is there no ARP reply in response to the request in packet 6? \\
+                        One possibility is that there was an error in sending or receiving the message to the machine that was at the destination address.
+                        Another possibility is that the machine itself is not connected (which, technically, could be considered an error).
+            \end{enumerate}
+
+      \item \textbf{Wireshark Statistics}
+            \begin{enumerate}[label=(\alph*)]
+                  \item Browse through the different Statistics options in Wireshark (\texttt{Statistics -> Capture File Properties}). What does the Packet size limit refer to: IP or Ethernet? \\
+                        65535 bytes, which refers to the IP limit.
+            \end{enumerate}
+
+      \item \textbf{Wireshark 802.11 Trace}
+            \begin{enumerate}[label=(\alph*)]
+                  \item Open the \texttt{Wireshark 802.11} trace file. Find the smallest and largest packets at layer 2. What protocol is used for the smallest frame? What protocol is used for the largest frame? (Not the code, but the name of the layer 2 protocol.)
+            \end{enumerate}
+            Both the smallest and largest packets are using the 802.11 protocol.
+            \clearpage
+
+      \item \textbf{ARP Cache Timeout}
+            \begin{enumerate}[label=(\alph*)]
+                  \item What is the default amount of time that an entry remains in your ARP cache before being removed in seconds?
+                        Do this by running this command:
+                        \begin{verbatim}
+cat /proc/sys/net/ipv4/neigh/default/base_reachable_time_ms
+        \end{verbatim}
+                        30,000 milliseconds \textrightarrow\ 30 seconds
+            \end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}

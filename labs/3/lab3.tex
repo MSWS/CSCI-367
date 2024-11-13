@@ -1,0 +1,113 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% Page geometry and margins
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm}
+
+% Header and Footer settings
+\pagestyle{fancy}
+\fancyhf{}
+\newcommand{\TheAuthor}{Isaac Boaz and Ksusha Gotham} % As given in documentation of **fancyhdr**
+\newcommand{\Author}[1]{\renewcommand{\TheAuthor}{#1}}
+\fancyhead[CO]{\slshape \leftmark}
+\fancyhead[C]{\slshape \TheAuthor}
+\fancyfoot[C]{\thepage}
+\rhead{CSCI 367}
+\lhead{Fall 2024}
+\rfoot{Page \thepage}
+
+% Listings settings for monospaced font
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{IP, ICMP, and Fragmentation}
+\end{center}
+
+\vspace{1cm}
+
+In this lab, you will analyze IP datagrams and fragmentation using Wireshark. You will load a pre-captured trace file and explore the various fields in the IP datagram. Include screenshots of Wireshark where necessary.
+
+\section*{Opening the Wireshark Trace File}
+
+To analyze the IP datagrams in this lab, you need to open the provided trace file \texttt{ip-ethereal-trace-1} in Wireshark.
+
+\begin{enumerate}
+    \item Download the \texttt{wireshark-traces.zip} file from the course materials.
+    \item Unzip the file, which should include the trace file \texttt{ip-ethereal-trace-1}.
+    \item In Wireshark, go to \texttt{File -> Open} and navigate to the directory where the unzipped trace files are located. Select the file \texttt{ip-ethereal-trace-1} and click \texttt{Open}.
+\end{enumerate}
+
+\section*{Lab Questions}
+
+\begin{enumerate}[label=Q\arabic*:]
+    \item \textbf{First ICMP Echo Request Message}
+          \begin{enumerate}[label=(\alph*)]
+              \item What is the IP address of the computer that sent the ICMP Echo Request message? \\
+                    \texttt{192.168.1.102}
+              \item Within the IP packet header, what is the value in the upper-layer protocol field?
+                    
+              \item How many bytes are in the IP header? How many bytes are in the payload of the IP datagram? Explain how you determined the number of payload bytes.
+              \item Has this IP datagram been fragmented? Explain how you determined whether or not the datagram has been fragmented.
+          \end{enumerate}
+
+    \item \textbf{Sorting by Source IP Address}
+          \begin{enumerate}[label=(\alph*)]
+              \item Sort the trace by the source IP address by clicking on the "Source" column header. Examine the ICMP Echo Request messages.
+              \item Which fields in the IP datagram typically change from one datagram to the next?
+              \item Which fields typically stay constant? Which fields must stay constant, and why?
+              \item Describe the pattern you see in the values in the Identification field of the IP datagram.
+          \end{enumerate}
+
+    \item \textbf{Fragmentation Analysis}
+          \begin{enumerate}[label=(\alph*)]
+              \item Find the first ICMP Echo Request message that was sent after the packet size was set to 2000 bytes. Has this message been fragmented across more than one IP datagram?
+              \item What information in the IP header of the first datagram indicates that the datagram has been fragmented?
+              \item  What information in the IP header of the second datagram indicates that this is not the first fragment? Are there more fragments? How can you tell?
+              \item What fields change in the IP header between the first and second fragments?
+          \end{enumerate}
+
+    \item \textbf{Fragmentation with Larger Packet Size}
+          \begin{enumerate}[label=(\alph*)]
+              \item Find the ICMP Echo Request message that was sent after the packet size was set to 3500 bytes.
+              \item How many fragments were created from the original datagram?
+              \item What fields change in the IP header among the fragments?
+          \end{enumerate}
+\end{enumerate}
+
+\section*{Submission Guidelines}
+Please submit answers to all the questions on Canvas as a PDF.
+
+\end{document}
