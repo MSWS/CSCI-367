@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% Page geometry and margins
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm}
+
+% Header and Footer settings
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CSCI 367}
+\lhead{Fall 2024}
+\rfoot{Page \thepage}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Wireshark Lab: NAT Protocol}
+\end{center}
+
+\vspace{1cm}
+
+In this lab, you will analyze the behavior of the NAT protocol using Wireshark trace files. Packet captures are provided for the client-side and ISP-side of a home network NAT device. Use Wireshark to examine the traces and answer the questions below. Whenever possible, provide annotated printouts of relevant packets.
+
+\section*{Analysis}
+
+\begin{enumerate}[label=Q\arabic*:]
+    \item What is the IP address of the client as recorded in the \texttt{NAT\_home\_side} trace file?
+
+    \item The client communicates with multiple Google servers. The main Google server serving the homepage has the IP address \texttt{64.233.169.104}. Use the filter expression \texttt{http \&\& ip.addr == 64.233.169.104} in Wireshark to isolate relevant frames. How many packets match this filter?
+
+    \item At time \texttt{7.109267}, the client sends an HTTP \texttt{GET} request to the server \texttt{64.233.169.104}. Find this packet in the \texttt{NAT\_home\_side} trace file. What are the source and destination IP addresses and TCP source and destination ports in the IP datagram carrying this request?
+
+    \item Locate the corresponding \texttt{200 OK} HTTP message received from the Google server. What is the time of its arrival at the client? What are the source and destination IP addresses and TCP source and destination ports in the IP datagram carrying this response? 
+
+    \item Before the HTTP \texttt{GET} request, a TCP connection is established via the three-way handshake. Identify the client-to-server TCP \texttt{SYN} segment used to establish the connection for the HTTP \texttt{GET} at time \texttt{7.109267}. What are the source and destination IP addresses and source and destination ports in this \texttt{SYN} segment? Find the corresponding \texttt{ACK} segment sent by the server. What are the source and destination IP addresses and source and destination ports in the \texttt{ACK}? What is the time when the \texttt{ACK} is received at the client? Include annotated printouts of both segments.
+
+    \item Open the \texttt{NAT\_ISP\_side} trace file. Locate the HTTP \texttt{GET} request from question 3 in this trace. At what time does this packet appear in the \texttt{NAT\_ISP\_side} trace? Compare the source and destination IP addresses and TCP source and destination ports between the two trace files. Which fields have changed due to NAT? Explain the differences.
+
+    \item In the \texttt{NAT\_ISP\_side} trace file, check the IP header of the HTTP \texttt{GET} request from question 6. Which of the following fields have changed compared to the home-side trace: Version, Header Length, Flags, Checksum? Check both the IP Datagram header and the TCP Segment header. For any changed field, provide a brief explanation of why the change occurred.
+
+    \item In the \texttt{NAT\_ISP\_side} trace file, locate the first \texttt{200 OK} HTTP message from the server corresponding to the request in question 6. What are the source and destination IP addresses and TCP source and destination ports in the IP datagram carrying this response? Compare these fields to your answer from question 4.
+
+    \item In the \texttt{NAT\_ISP\_side} trace file, locate the client-to-server TCP \texttt{SYN} segment and the server-to-client \texttt{ACK} segment corresponding to the handshake in question 5. At what times are these segments captured? Compare the source and destination IP addresses and TCP source and destination ports to the \texttt{NAT\_home\_side} trace file.
+\end{enumerate}
+
+
+\section*{Submission Guidelines}
+
+Submit your answers as a PDF on Canvas, including annotated Wireshark screenshots where applicable. 
+
+\end{document}
