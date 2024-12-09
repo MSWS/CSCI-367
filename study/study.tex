@@ -1,0 +1,228 @@
+\documentclass[8pt]{extarticle}
+
+\usepackage{lipsum}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{bytefield}
+
+\usepackage[margin=0.2in]{geometry}
+
+\setdescription{itemsep=-3pt}
+\setenumerate{itemsep=0pt}
+\setitemize{itemsep=0pt}
+
+\begin{document}
+\begin{tabular}{|c|c|}
+  \hline
+  Application  & HTTP, FTP, SMTP \\
+  \hline
+  Transport    & TCP, UDP        \\
+  \hline
+  Internetwork & Datagrams       \\
+  \hline
+  Link         & MAC, Frames     \\
+  \hline
+  Physical     & Ethernet, WiFi  \\
+  \hline
+\end{tabular}
+
+\section*{Glossary}
+\begin{description}
+  \item[MTU]  Maximum Transmission Unit
+        \begin{itemize}
+          \item Calculated as the smallest MTU of all links in the path.
+          \item If a packet is larger than the MTU, it is fragmented.
+        \end{itemize}
+  \item [ECN] Explicit Congestion Notification
+        \begin{itemize}
+          \item A bit in the IP header that is set by the router to indicate congestion.
+          \item Related to TCP's congestion control.
+        \end{itemize}
+  \item [Subnetting] Dividing a network into smaller networks.
+        \begin{itemize}
+          \item Done by borrowing bits from the host portion of the address.
+          \item Done to reduce broadcast traffic and improve security.
+        \end{itemize}
+  \item [Supernetting] Combining multiple networks into a single network.
+        \begin{itemize}
+          \item Done by borrowing bits from the network portion of the address.
+          \item Done to reduce routing table size.
+        \end{itemize}
+\end{description}
+
+\section*{Physical}
+\begin{description}
+  \item[CAT] Category (twisted pair) cable for Ethernet.
+  \item[Coax] Coaxial cable for Ethernet.
+\end{description}
+
+\section*{Link}
+\begin{description}
+  \item[MAC] Media Access Control
+        \begin{itemize}
+          \item Unique identifier for a network interface.
+          \item 48 bits, often represented as 6 groups of 2 hexadecimal digits.
+          \item First 24 bits are the OUI (Organizationally Unique Identifier).
+          \item Example: \texttt{00:1A:2B:3C:4D:5E}
+        \end{itemize}
+  \item[ARP] Address Resolution Protocol
+        \begin{itemize}
+          \item Who has \texttt{$IP_B$}? Tell \texttt{$IP_A$} at \texttt{$MAC_A$}.
+                \begin{enumerate}
+                  \item Any listening devices may receive this request and update their
+                        local cache of $IP_A$'s $MAC_A$.
+                  \item If the receiving machine is not $IP_B$, it will stop processing
+                        the request.
+                  \item Otherwise, it will send an ARP reply to $MAC_A$. \\
+                        Since this reply is \emph{not} broadcasted, no other machines can update their cache.
+                \end{enumerate}
+          \item Typical cache timeout of 20 minutes.
+          \item Gratuitous ARP is used to update caches.
+                \begin{enumerate}
+                  \item A machine sends an ARP request for its own IP.
+                  \item All machines update their cache with the new MAC.
+                  \item This is useful for updating caches after a machine has changed its MAC.
+                \end{enumerate}
+        \end{itemize}
+  \item[Switch] A device that forwards packets based on MAC addresses. (Layer 2)
+  \item[Hub] A device that broadcasts packets to all connected devices. (Layer 1)
+\end{description}
+
+\section*{Link}
+\subsection*{Transmission}
+\begin{description}
+  \item[Direct and Indirect Deliver] Direct is on the same network, indirect is on a different network.
+  \item[Unicast, Broadcast, Multicast] Unicast is one-to-one, broadcast is one-to-all, multicast is one-to-many.
+  \item[Switching] Forwarding packets based on MAC addresses.
+  \item[Spanning Tree Protocol] Prevents loops in a network.
+\end{description}
+
+\section*{Internetwork}
+\subsection*{IP Datagrams}
+\subsubsection*{Fragmentation}
+\begin{itemize}
+  \item Done by routers when the packet is too large for the next hop.
+  \item \texttt{DF} (Don't Fragment) bit in the IP header can be set to prevent fragmentation.
+  \item \texttt{MF} (More Fragments) bit is set on all fragments except the last.
+  \item \texttt{Fragment Offset} field is used to reassemble the fragments.
+  \item \texttt{Identification} field is used to identify the original packet.
+  \item \texttt{Total Length} field is the size of the fragment.
+  \item \texttt{Header Checksum} is recalculated for each fragment.
+\end{itemize}
+
+\section*{Transport}
+\begin{multicols}{2}
+  \subsection*{UDP}
+  \begin{itemize}
+    \item Connectionless, unreliable.
+    \item Includes psuedo-header in checksum calculation.
+  \end{itemize}
+
+  \columnbreak
+
+  \subsection*{TCP}
+  \begin{itemize}
+    \item Stream Orientation.
+    \item Virtual Circuit.
+    \item Buffered, unstructured stream.
+    \item Full duplex.
+  \end{itemize}
+\end{multicols}
+
+\section*{Schemas}
+\small
+
+\subsubsection*{Ethernet Frame}
+\begin{bytefield}{32}
+  \bitbox[]{8}{Preamble} & \bitbox[]{6}{Destination Address} &
+  \bitbox[]{6}{Source Address} & \bitbox[]{2}{Frame Type} & \bitbox[]{12}{Frame
+    Data} & \bitbox[]{4}{CRC} \\
+  \bitbox{8}{8 octets} & \bitbox{6}{6 octets} & \bitbox{6}{6 octets} &
+  \bitbox{2}{2} & \bitbox{12}{46 - 1500 octets} & \bitbox{4}{4 octets} \\
+\end{bytefield}
+
+\subsubsection*{IPv4 Datagram}
+\begin{bytefield}{32}
+  \bitheader{0, 8, 16, 31} \\
+  \bitbox{4}{VERS} & \bitbox{4}{HLEN} & \bitbox{8}{SERVICE TYPE} &
+  \bitbox{16}{TOTAL LENGTH} \\
+  \bitbox{16}{IDENTIFICATION} & \bitbox{3}{FLAGS} & \bitbox{13}{FRAGMENT OFFSET}
+  \\
+  \bitbox{8}{TTL} & \bitbox{8}{PROTOCOL} & \bitbox{16}{HEADER CHECKSUM} \\
+  \wordbox{1}{SOURCE IP} \\
+  \wordbox{1}{DESTINATION IP} \\
+  \bitbox{24}{IP OPTIONS (IF ANY)} & \bitbox{8}{PADDING} \\
+  \wordbox{1}{DATA \dots} \\
+\end{bytefield}
+
+\begin{multicols}{2}
+  \subsubsection*{UDP Header}
+  \begin{bytefield}{32}
+    \bitheader{0, 16, 31} \\
+    \bitbox{16}{SOURCE PORT} & \bitbox{16}{DESTINATION PORT} \\
+    \bitbox{16}{LENGTH} & \bitbox{16}{CHECKSUM (or 0)} \\
+    \wordbox{1}{DATA \dots} \\
+  \end{bytefield}
+
+  \columnbreak
+
+  \subsubsection*{UDP Psuedo Header}
+  \begin{bytefield}{32}
+    \bitheader{0, 8, 16, 31} \\
+    \wordbox{1}{SOURCE IP} \\
+    \wordbox{1}{DESTINATION IP} \\
+    \bitbox{8}{Zero} & \bitbox{8}{PROTOCOL} & \bitbox{16}{UDP LENGTH} \\
+  \end{bytefield}
+\end{multicols}
+
+\normalsize
+
+\section*{Addressing}
+
+\begin{multicols}{2}
+  \subsection*{Classful Addressing}
+  \begin{tabular}{c|c|l}
+    Class A & \texttt{0XXXXXXX} & /8  \\
+    Class B & \texttt{10XXXXXX} & /16 \\
+    Class C & \texttt{110XXXXX} & /24 \\
+    Class D & \texttt{1110XXXX} & /31 \\
+    Class E & \texttt{1111XXXX} & /32 \\
+  \end{tabular}
+
+  \begin{description}
+    \item[`This' network'] has host bits set to 0.
+    \item[Broadcast] has host bits set to 1.
+  \end{description}
+
+  \subsection*{ARP}
+
+  \columnbreak
+
+  \begin{tabular}{|c|c|c|c|l}
+    \cline{0-3}
+    \multicolumn{4}{|c|}{all 0s} & This host                                               \\
+    \cline{0-3}
+    \multicolumn{5}{c}{}                                                                   \\
+    \cline{0-3}
+    \multicolumn{2}{|c|}{all 0s} & \multicolumn{2}{|c|}{host}               & Host on this
+    network                                                                                \\
+    \cline{0-3}
+    \multicolumn{5}{c}{}                                                                   \\
+    \cline{0-3}
+    \multicolumn{4}{|c|}{all 1s} & Limited broadcast (local net)                           \\
+    \cline{0-3}
+    \multicolumn{5}{c}{}                                                                   \\
+    \cline{0-3}
+    \multicolumn{2}{|c|}{net}    & \multicolumn{2}{|c|}{all 1s}             & Directed
+    broadcast for net                                                                      \\
+    \cline{0-3}
+    \multicolumn{5}{c}{}                                                                   \\
+    \cline{0-3}
+    127                          & \multicolumn{3}{|c|}{anything (often 1)} &
+    Loopback                                                                               \\
+    \cline{0-3}
+  \end{tabular}
+\end{multicols}
+
+\end{document}
